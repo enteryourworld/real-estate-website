@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Items List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/style.css' %}">
+</head>
+<body>
+<div class="container mt-4">
+    <h1 class="mb-4">Объекты</h1>
+    <a href="{% url 'create' %}" class="btn btn-primary mb-3">Добавить новый объект</a>
+
+    <form method="GET" class="mb-4">
+        <div class="form-row">
+            <div class="col">
+                <select name="city" class="form-control">
+                    <option value="">Выберите город</option>
+                    {% for city in cities %}
+                        <option value="{{ city }}" {% if request.GET.city == city %}selected{% endif %}>{{ city }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col">
+                <select name="type" class="form-control">
+                    <option value="">Выберите тип</option>
+                    {% for type in types %}
+                        <option value="{{ type }}" {% if request.GET.type == type %}selected{% endif %}>{{ type }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">Отфильтровать</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        {% for item in items %}
+            <div class="col-md-12 mb-4"> <!-- Full width for vertical stacking -->
+                <div class="card">
+                    <img src="{{ item.photo.url }}" class="card-img-top" alt="{{ item.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.nameobject }}</h5>
+                        <p class="card-text">{{ item.textobject }}</p>
+                        <p class="card-text"><strong>Город:</strong> {{ item.city }}</p>
+                        <p class="card-text"><strong>Тип:</strong> {{ item.type }}</p>
+                        <p class="card-text"><strong>Чей объект:</strong> {{ item.whoseobject }}</p>
+                        <p class = "card-text"> <strong> Дата: </strong> {{ item.date}}</p>
+
+                        <div class="d-flex flex-wrap">
+                            {% for photo in item.photos.all %}
+                                <img src="{{ photo.image.url }}" alt="Photo" class="img-fluid" style="max-width: 150px; margin: 5px;">
+                            {% empty %}
+                                <p>No photos available.</p>  <!-- Сообщение, если фотографий нет -->
+                            {% endfor %}
+                        </div>
+
+                        <a href="{% url 'item_update' item.pk %}" class="btn btn-warning">Изменить</a>
+                        <form action="{% url 'item_delete' item.pk %}" method="POST" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Удалить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col">
+                <p>Объекты не найдены.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>

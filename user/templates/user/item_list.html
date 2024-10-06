@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Item</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h1 class="mb-4">Название объекта: {{ item.nameobject }}</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="id_nameobject">Название объекта</label>
+            <input type="text" name="nameobject" id="id_nameobject" class="form-control" value="{{ item.nameobject }}" required>
+        </div>
+
+       <div class="form-group">
+        <label for="id_photoobject">Фото</label>
+        <input type="file" name="images" id="id_photoobject" class="form-control" multiple>
+    </div>
+
+        <div class="form-group">
+            <label for="id_textobject">Описание</label>
+            <textarea name="textobject" id="id_textobject" class="form-control" required>{{ item.textobject }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="id_whoseobject">За кем закреплен</label>
+            <input type="text" name="whoseobject" id="id_whoseobject" class="form-control" value="{{ item.whoseobject }}" required>
+        </div>
+        <label for="object_type">Выберите тип объекта:</label>
+    <select name="type" id="object_type">
+        <option value="Земельный участок" {% if item.type == 'Земельный участок' %}selected{% endif %}>Земельный участок</option>
+        <option value="Гостиница" {% if item.type == 'Гостиница' %}selected{% endif %}>Гостиница</option>
+        <option value="Домовладение" {% if item.type == 'Домовладение' %}selected{% endif %}>Домовладение</option>
+        <option value="Квартира" {% if item.type == 'Квартира' %}selected{% endif %}>Квартира</option>
+        <option value="Комната" {% if item.type == 'Комната' %}selected{% endif %}>Комната</option>
+    </select>
+        <br>
+        <label for="участок">Выберите участок:</label>
+    <select name="city" id="участок">
+        <option value="Сорт участок" {% if item.city == 'Сорт участок' %}selected{% endif %}>Сорт</option>
+        <option value="Волконка" {% if item.city == 'Волконка' %}selected{% endif %}>Волконка</option>
+        <option value="Солоники" {% if item.city == 'Солоники' %}selected{% endif %}>Солоники</option>
+        <option value="Сосновый бор" {% if item.city == 'Сосновый бор' %}selected{% endif %}>Сосновый бор</option>
+        <option value="Лазаревское" {% if item.city == 'Лазаревское' %}selected{% endif %}>Лазаревское</option>
+        <option value="Алексеевское" {% if item.city == 'Алексеевское' %}selected{% endif %}>Алексеевское</option>
+        <option value="Татьяновка" {% if item.city == 'Татьяновка' %}selected{% endif %}>Татьяновка</option>
+        <option value="Мамедова щель" {% if item.city == 'Мамедова щель' %}selected{% endif %}>Мамедова щель</option>
+        <option value="Аше" {% if item.city == 'Аше' %}selected{% endif %}>Аше</option>
+        <option value="Макопсе" {% if item.city == 'Макопсе' %}selected{% endif %}>Макопсе</option>
+        <option value="Вишнёвка" {% if item.city == 'Вишнёвка' %}selected{% endif %}>Вишнёвка</option>
+        <option value="Тихоновка" {% if item.city == 'Тихоновка' %}selected{% endif %}>Тихоновка</option>
+        <option value="Калиновка" {% if item.city == 'Калиновка' %}selected{% endif %}>Калиновка</option>
+    </select><br>
+
+
+        <div class="form-group">
+            <label for="id_date">Дата</label>
+           <input type="date" name="date" id="id_date" class="form-control" value="{{ item.date|date:'Y-m-d' }}" required>
+
+        </div>
+
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+        <a href="{% url 'mainpage' %}" class="btn btn-secondary">Выйти</a> <!-- Вернуться к списку -->
+    </form>
+</div>
+</body>
+</html>

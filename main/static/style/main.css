@@ -1,0 +1,45 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #a8c8f0, #e2f1ff);
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.card {
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover; /* Ensures the image covers the space */
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.form-row {
+    margin-bottom: 20px;
+}
+
+.btn {
+    margin-top: 10px;
+}
+.card-body img {
+    width: 100%; /* Set to 100% to ensure responsiveness */
+    height: auto; /* Maintain aspect ratio */
+    max-width: 150px; /* Set a max width to fit multiple images */
+    margin: 5px; /* Add some margin between images */
+}

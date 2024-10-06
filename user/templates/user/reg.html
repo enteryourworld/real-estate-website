@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{%load static%}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'style/reg.css' %}">
+</head>
+<body>
+
+
+    <div class="container main">
+        <div class="tabs">
+            <div class="tabs__item active" data-tab="ent">Вход</div>
+        </div>
+        <div class="tabs__content">
+            <div class="tabs__form active" id="ent">
+                <form method="POST" action="{% url  'login' %}" id='enter-form'>
+              {% csrf_token %}
+                    <input type="text" id="username" name="username" placeholder="Логин" required>
+                    <input type="password" id="password-enter" name="password" placeholder="Пароль" required>
+
+                    <button type="submit">Войти</button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</body>
+</html>

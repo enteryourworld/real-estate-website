@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style/create.css' %}">
+</head>
+<body>
+<h3 style="text-align: center"> Добавление в базу данных</h3>
+<div>
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <input type="text" placeholder="Название объекта" name="nameobject" value="{{ item.nameobject|default:'' }}"><br>
+    <input type="text" placeholder="Описание объекта" name="textobject" value="{{ item.textobject|default:'' }}"><br>
+
+    <h5>Загрузить фотографии:</h5>
+    <input type="file" name="images" multiple><br> <!-- Изменено на 'image' для загрузки нескольких фотографий -->
+
+    <input type="text" placeholder="За кем закреплен" name="whoseobject" value="{{ item.whoseobject|default:'' }}"><br>
+     <label for="object_type">Выберите тип объекта:</label>
+    <select name="type" id="object_type">
+        <option value="Земельный участок" {% if item.type == 'Земельный участок' %}selected{% endif %}>Земельный участок</option>
+        <option value="Гостиница" {% if item.type == 'Гостиница' %}selected{% endif %}>Гостиница</option>
+        <option value="Домовладение" {% if item.type == 'Домовладение' %}selected{% endif %}>Домовладение</option>
+        <option value="Квартира" {% if item.type == 'Квартира' %}selected{% endif %}>Квартира</option>
+        <option value="Комната" {% if item.type == 'Комната' %}selected{% endif %}>Комната</option>
+    </select>
+        <br>
+   <label for="участок">Выберите участок:</label>
+    <select name="city" id="участок">
+        <option value="Сорт участок" {% if item.city == 'Сорт участок' %}selected{% endif %}>Сорт участок</option>
+        <option value="Волконка" {% if item.city == 'Волконка' %}selected{% endif %}>Волконка</option>
+        <option value="Солоники" {% if item.city == 'Солоники' %}selected{% endif %}>Солоники</option>
+        <option value="Сосновый бор" {% if item.city == 'Сосновый бор' %}selected{% endif %}>Сосновый бор</option>
+        <option value="Лазаревское" {% if item.city == 'Лазаревское' %}selected{% endif %}>Лазаревское</option>
+        <option value="Алексеевское" {% if item.city == 'Алексеевское' %}selected{% endif %}>Алексеевское</option>
+        <option value="Татьяновка" {% if item.city == 'Татьяновка' %}selected{% endif %}>Татьяновка</option>
+        <option value="Мамедова щель" {% if item.city == 'Мамедова щель' %}selected{% endif %}>Мамедова щель</option>
+        <option value="Аше" {% if item.city == 'Аше' %}selected{% endif %}>Аше</option>
+        <option value="Макопсе" {% if item.city == 'Макопсе' %}selected{% endif %}>Макопсе</option>
+        <option value="Вишнёвка" {% if item.city == 'Вишнёвка' %}selected{% endif %}>Вишнёвка</option>
+        <option value="Тихоновка" {% if item.city == 'Тихоновка' %}selected{% endif %}>Тихоновка</option>
+        <option value="Калиновка" {% if item.city == 'Калиновка' %}selected{% endif %}>Калиновка</option>
+    </select><br>
+    <input type="date" name="date" value="{{ item.date|date:'Y-m-d'|default:'' }}"><br> <!-- Пример поля для даты, если нужно -->
+
+    <button type="submit">Сохранить</button>
+        <a href="{% url 'mainpage' %}" class="btn btn-secondary">Выйти</a>
+    <span>{{ error }}</span>
+</form>
+</div>
+</body>
+</html>
